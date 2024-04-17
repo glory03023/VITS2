@@ -137,7 +137,7 @@ def load_vocab(vocab_file: str):
     from text.symbols import UNK_ID, special_symbols
 
     vocab = {}
-    with open(vocab_file, "r") as f:
+    with open(vocab_file, "r", encoding="utf-8") as f:
         for line in f:
             token, index = line.split()
             vocab[token] = int(index)

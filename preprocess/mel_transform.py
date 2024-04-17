@@ -62,7 +62,7 @@ def process_batch(batch, sr_hps, n_fft, hop_size, win_size, n_mels, fmin, fmax):
 def process_data(hps: HParams):
     wav_fns = sorted(glob.glob(f"{hps.data_dir}/**/*.wav", recursive=True))
     # wav_fns = wav_fns[:100]  # * Enable for testing
-    logging.info(f"Max: {mp.cpu_count()}; using 32 CPU cores")
+    logging.info(f"Max: {mp.cpu_count()}; using 8 CPU cores")
     logging.info(f"Preprocessing {len(wav_fns)} files...")
 
     sr = hps.data.sample_rate
@@ -78,7 +78,7 @@ def process_data(hps: HParams):
     audio_file_batches = [wav_fns[i : i + batch_size] for i in range(0, len(wav_fns), batch_size)]
 
     # Use multiprocessing to speed up the conversion
-    with ProcessPoolExecutor(max_workers=32) as executor:
+    with ProcessPoolExecutor(max_workers=8) as executor:
         futures = [executor.submit(process_batch, batch, sr, n_fft, hop_size, win_size, n_mels, fmin, fmax) for batch in audio_file_batches]
         for future in tqdm(futures):
             if future.result() is None:

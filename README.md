@@ -49,6 +49,7 @@ conda activate vits2
 pip install -r requirements.txt
 
 conda env config vars set PYTHONPATH="/path/to/vits2"
+conda env config vars set PHONEMIZER_ESPEAK_LIBRARY="/path/to/libespeak-ng.dll"
 ```
 
 ## Download datasets
